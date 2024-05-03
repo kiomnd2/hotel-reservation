@@ -3,4 +3,6 @@ include 'hotel-domain'
 include 'payment-domain'
 include 'reservation-domain'
 include 'fee-domain'
+include 'hotel-internal-api'
+include 'common-api'
 
