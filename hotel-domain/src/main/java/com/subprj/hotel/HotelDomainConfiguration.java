@@ -1,0 +1,11 @@
+package com.subprj.hotel;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+@PropertySource(ignoreResourceNotFound = true, encoding = "UTF-8", value = {
+        "classpath:config/application-hotel.properties"
+})
+@Configuration
+public class HotelDomainConfiguration {
+}
