@@ -1,0 +1,6 @@
+
+dependencies {
+    implementation project(":common-api")
+    implementation project(":hotel-domain")
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
