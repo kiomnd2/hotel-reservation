@@ -37,6 +37,7 @@ public class Hotel {
 
     public HotelInfo toInfo() {
         return HotelInfo.builder()
+                .token(uuid)
                 .name(name)
                 .address(address)
                 .build();
