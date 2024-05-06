@@ -38,4 +38,13 @@ public class HotelApi {
         hotelFacade.deleteHotel(hotelId);
         return CommonResponse.success(null);
     }
+
+    // Room
+    @GetMapping("{hotelId}/rooms/{roomId}")
+    public CommonResponse<RoomDto.ResponseRoom> getRoom(@PathVariable String hotelId
+            , @PathVariable String roomId) {
+        return CommonResponse.success(RoomDto.ResponseRoom.builder().build());
+    }
+
+
 }
