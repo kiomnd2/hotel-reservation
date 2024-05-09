@@ -3,6 +3,7 @@ package com.subprj.interfaces.hotel;
 import com.subprj.application.hotel.HotelFacade;
 import com.subprj.common.resposne.CommonResponse;
 import com.subprj.hotel.domain.hotel.HotelInfo;
+import com.subprj.hotel.domain.hotel.room.RoomInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +42,31 @@ public class HotelApi {
 
     // Room
     @GetMapping("{hotelId}/rooms/{roomId}")
-    public CommonResponse<RoomDto.ResponseRoom> getRoom(@PathVariable String hotelId
+    public CommonResponse<RoomDto.ResponseRoom> getHotelRoom(@PathVariable String hotelId
             , @PathVariable String roomId) {
         return CommonResponse.success(RoomDto.ResponseRoom.builder().build());
     }
 
+    @PostMapping("{hotelId}/rooms")
+    public CommonResponse<RoomDto.ResponseRoom> addHotelRoom(@PathVariable String hotelId
+            , @RequestBody RoomDto.RequestRoom requestRoom) {
+        RoomInfo roomInfo = hotelFacade.addHotelRoom(hotelId, requestRoom);
+        return CommonResponse.success(RoomDto.ResponseRoom.byInfo(roomInfo));
+    }
+
+    @PutMapping("{hotelId}/rooms/{roomId}")
+    public CommonResponse<Void> modifyHotelRoom(@PathVariable String hotelId
+            , @PathVariable String roomId
+            , @RequestBody RoomDto.RequestRoom requestRoom)  {
+        hotelFacade.modifyHotelRoom(hotelId, roomId, requestRoom);
+        return CommonResponse.success(null);
+    }
+
+    @DeleteMapping("{hotelId}/rooms/{roomId}")
+    public CommonResponse<Void> deleteHotelRoom(@PathVariable String hotelId
+            , @PathVariable String roomId) {
+        hotelFacade.deleteHotelRoom(hotelId, roomId);
+        return CommonResponse.success(null);
+    }
 
 }
