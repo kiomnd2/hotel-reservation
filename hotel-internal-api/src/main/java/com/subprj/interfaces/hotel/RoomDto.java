@@ -13,8 +13,6 @@ public class RoomDto {
     @Setter
     @ToString
     public static class RequestRoom {
-        private Hotel hotelId;
-        private String roomTypeId;
         private String name;
         private Long floor;
         private Long number;
@@ -33,15 +31,12 @@ public class RoomDto {
         private Long number;
         private Boolean isAvailable;
 
-        public static ResponseRoom byInfo(RoomInfo roomInfo) {
-            return ResponseRoom.builder()
-                    .hotelId(roomInfo.getHotel())
-                    .roomTypeId(roomInfo.getRoomTypeId())
-                    .name(roomInfo.getName())
-                    .floor(roomInfo.getFloor())
-                    .number(roomInfo.getNumber())
-                    .isAvailable(roomInfo.getIsAvailable())
-                    .build();
-        }
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class ResponseToken {
+        private String roomToken;
     }
 }

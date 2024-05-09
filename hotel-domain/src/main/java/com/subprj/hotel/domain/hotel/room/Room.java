@@ -1,6 +1,7 @@
 package com.subprj.hotel.domain.hotel.room;
 
 import com.subprj.hotel.domain.hotel.Hotel;
+import com.subprj.hotel.domain.hotel.HotelCommand;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class Room {
     private Hotel hotel;
     private String name;
     private Boolean isAvailable;
+    private boolean isDelete;
 
     @Builder
     public Room(Long floor, Long number,
@@ -37,5 +39,31 @@ public class Room {
         this.hotel = hotel;
         this.name = name;
         this.isAvailable = isAvailable;
+        this.isDelete = false;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public void modifyHotelRoom(HotelCommand.PutHotelRoom hotelRoom) {
+        this.name = hotelRoom.getName();
+        this.floor = hotelRoom.getFloor();
+        this.isAvailable = hotelRoom.getIsAvailable();
+        this.number = hotelRoom.getNumber();
+    }
+
+    public RoomInfo toInfo() {
+        return RoomInfo.builder()
+                .name(name)
+                .roomTypeId(roomTypeId)
+                .number(number)
+                .floor(floor)
+                .isAvailable(isAvailable)
+                .build();
+    }
+
+    public void delete() {
+        this.isDelete = true;
     }
 }

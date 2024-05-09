@@ -51,4 +51,9 @@ public class Hotel {
     public void deleteHotel() {
         this.isDelete = true;
     }
+
+    public void addRoom(Room room) {
+        this.roomList.add(room);
+        room.setHotel(this);
+    }
 }

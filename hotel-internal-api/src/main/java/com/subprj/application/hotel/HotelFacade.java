@@ -1,5 +1,6 @@
 package com.subprj.application.hotel;
 
+import com.subprj.hotel.domain.hotel.HotelCommand;
 import com.subprj.hotel.domain.hotel.HotelInfo;
 import com.subprj.hotel.domain.hotel.HotelService;
 import com.subprj.hotel.domain.hotel.room.RoomInfo;
@@ -29,15 +30,25 @@ public class HotelFacade {
         hotelService.deleteHotel(hotelId);
     }
 
-    public RoomInfo addHotelRoom(String hotelId, RoomDto.RequestRoom requestRoom) {
-
+    public String addHotelRoom(String hotelId, RoomDto.RequestRoom requestRoom) {
+        return hotelService.addHotelRoom(hotelId, HotelCommand.PutHotelRoom.builder()
+                        .name(requestRoom.getName())
+                        .floor(requestRoom.getFloor())
+                        .number(requestRoom.getNumber())
+                        .isAvailable(requestRoom.getIsAvailable())
+                .build());
     }
 
     public void modifyHotelRoom(String hotelId, String roomId, RoomDto.RequestRoom requestRoom) {
-
+        hotelService.modifyHotelRoom(hotelId, roomId, HotelCommand.PutHotelRoom.builder()
+                .name(requestRoom.getName())
+                .floor(requestRoom.getFloor())
+                .number(requestRoom.getNumber())
+                .isAvailable(requestRoom.getIsAvailable())
+                .build());
     }
 
     public void deleteHotelRoom(String hotelId, String roomId) {
-
+        hotelService.deleteHotelRoom(hotelId, roomId);
     }
 }

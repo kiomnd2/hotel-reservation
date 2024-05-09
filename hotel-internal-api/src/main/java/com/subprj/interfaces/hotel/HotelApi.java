@@ -48,10 +48,10 @@ public class HotelApi {
     }
 
     @PostMapping("{hotelId}/rooms")
-    public CommonResponse<RoomDto.ResponseRoom> addHotelRoom(@PathVariable String hotelId
+    public CommonResponse<RoomDto.ResponseToken> addHotelRoom(@PathVariable String hotelId
             , @RequestBody RoomDto.RequestRoom requestRoom) {
-        RoomInfo roomInfo = hotelFacade.addHotelRoom(hotelId, requestRoom);
-        return CommonResponse.success(RoomDto.ResponseRoom.byInfo(roomInfo));
+        String token = hotelFacade.addHotelRoom(hotelId, requestRoom);
+        return CommonResponse.success(RoomDto.ResponseToken.builder().roomToken(token).build());
     }
 
     @PutMapping("{hotelId}/rooms/{roomId}")
