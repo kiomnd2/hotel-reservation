@@ -5,5 +5,5 @@ include 'reservation-domain'
 include 'fee-domain'
 include 'hotel-internal-api'
 include 'common-api'
-include 'hotel-internal-api'
+include 'eureka-server'
 

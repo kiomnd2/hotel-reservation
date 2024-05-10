@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/common-api" />
+            <option value="$PROJECT_DIR$/eureka-server" />
             <option value="$PROJECT_DIR$/fee-domain" />
             <option value="$PROJECT_DIR$/hotel-domain" />
             <option value="$PROJECT_DIR$/hotel-internal-api" />

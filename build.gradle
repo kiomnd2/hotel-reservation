@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
+
 }
 
 bootJar.enabled = false
@@ -18,6 +19,10 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+
+    ext {
+        set('springCloudVersion', "2023.0.0")
+    }
 
     configurations {
         compileOnly {
@@ -37,5 +42,11 @@ subprojects {
 
     test {
         useJUnitPlatform()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
     }
 }
