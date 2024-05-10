@@ -12,7 +12,7 @@ public class GatewayFilterConfig {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(r -> r.path("/v1/hotels/**")
-                        .uri("http://localhost:8081"))
+                        .uri("lb://HOTEL-SERVICE"))
                 .build();
     }
 }
