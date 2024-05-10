@@ -6,4 +6,5 @@ include 'fee-domain'
 include 'hotel-internal-api'
 include 'common-api'
 include 'eureka-server'
+include 'api-gateway'
 
