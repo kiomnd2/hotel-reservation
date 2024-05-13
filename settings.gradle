@@ -7,4 +7,5 @@ include 'hotel-internal-api'
 include 'common-api'
 include 'eureka-server'
 include 'api-gateway'
+include 'reservation-internal-api'
 

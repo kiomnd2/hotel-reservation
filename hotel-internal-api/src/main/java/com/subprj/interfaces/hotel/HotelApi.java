@@ -8,7 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RestController("/v1/hotels")
+@RestController
+@RequestMapping("/v1/hotels")
 public class HotelApi {
     private final HotelFacade hotelFacade;
 
