@@ -45,4 +45,14 @@ public class Reservation {
             throw new InvalidHotelInfoException(this.getHotelId(), this.getRoomTypeId());
         }
     }
+
+    public ReservationInfo toInfo() {
+        return ReservationInfo.builder()
+                .hotelId(hotelId)
+                .roomTypeId(roomTypeId)
+                .date(date)
+                .totalInventory(totalInventory)
+                .totalReservation(totalReservation)
+                .build();
+    }
 }
