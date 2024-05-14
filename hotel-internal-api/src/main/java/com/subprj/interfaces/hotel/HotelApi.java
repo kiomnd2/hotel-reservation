@@ -1,9 +1,8 @@
 package com.subprj.interfaces.hotel;
 
 import com.subprj.application.hotel.HotelFacade;
-import com.subprj.common.resposne.CommonResponse;
+import com.subprj.common.response.CommonResponse;
 import com.subprj.hotel.domain.hotel.HotelInfo;
-import com.subprj.hotel.domain.hotel.room.RoomInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

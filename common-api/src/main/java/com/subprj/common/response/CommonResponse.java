@@ -1,4 +1,4 @@
-package com.subprj.common.resposne;
+package com.subprj.common.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

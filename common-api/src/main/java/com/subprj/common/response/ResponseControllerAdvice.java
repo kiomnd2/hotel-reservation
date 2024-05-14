@@ -1,6 +1,6 @@
-package com.subprj.common.resposne;
+package com.subprj.common.response;
 
-import com.subprj.common.resposne.exception.BaseException;
+import com.subprj.common.response.exception.BaseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
