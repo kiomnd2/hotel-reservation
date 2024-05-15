@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 @RequiredArgsConstructor
-public class ReservationInfo {
+public class RoomTypeInventoryInfo {
     private final String uuid;
     private final String hotelId;
     private final String roomTypeId;

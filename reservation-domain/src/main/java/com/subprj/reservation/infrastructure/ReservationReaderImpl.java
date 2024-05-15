@@ -1,7 +1,8 @@
 package com.subprj.reservation.infrastructure;
 
-import com.subprj.reservation.domain.Reservation;
-import com.subprj.reservation.domain.ReservationReader;
+import com.subprj.common.utils.DateTimeUtil;
+import com.subprj.reservation.domain.RoomTypeInventory;
+import com.subprj.reservation.domain.RoomTypeInventoryReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,13 +12,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class ReservationReaderImpl implements ReservationReader {
-    private final ReservationRepository reservationRepository;
+public class ReservationReaderImpl implements RoomTypeInventoryReader {
+    private final RoomTypeInventoryRepository roomTypeInventoryRepository;
     @Override
-    public List<Reservation> read(String startDate, String endDate) {
-        return reservationRepository.findAllByDateBetween(
-                LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyyMMdd")),
-                LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyyMMdd"))
+    public List<RoomTypeInventory> read(String startDate, String endDate) {
+        return roomTypeInventoryRepository.findAllByDateBetween(
+                DateTimeUtil.toLocalDateTime(startDate),
+                DateTimeUtil.toLocalDateTime(endDate)
         );
     }
 }

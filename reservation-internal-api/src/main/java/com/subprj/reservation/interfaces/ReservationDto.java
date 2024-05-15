@@ -1,7 +1,7 @@
 package com.subprj.reservation.interfaces;
 
 import com.subprj.reservation.domain.ReservationCommand;
-import com.subprj.reservation.domain.ReservationInfo;
+import com.subprj.reservation.domain.RoomTypeInventoryInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,20 +17,20 @@ public class ReservationDto {
     @Builder
     @Setter
     @Getter
-    public static class ResponseReservation {
+    public static class ResponseCreateRoomInventory {
         private String hotelId;
         private String roomTypeId;
         private String date;
         private Integer totalInventory;
         private Integer totalReservation;
 
-        public static List<ResponseReservation> byInfo(List<ReservationInfo> reservationsRoom) {
+        public static List<ResponseCreateRoomInventory> byInfo(List<RoomTypeInventoryInfo> reservationsRoom) {
             return reservationsRoom.stream()
-                    .map(ResponseReservation::byInfo).collect(Collectors.toList());
+                    .map(ResponseCreateRoomInventory::byInfo).collect(Collectors.toList());
         }
 
-        public static ResponseReservation byInfo(ReservationInfo reservationInfo) {
-            return ResponseReservation.builder()
+        public static ResponseCreateRoomInventory byInfo(RoomTypeInventoryInfo reservationInfo) {
+            return ResponseCreateRoomInventory.builder()
                     .hotelId(reservationInfo.getHotelId())
                     .roomTypeId(reservationInfo.getRoomTypeId())
                     .date(reservationInfo.getDate().format(DateTimeFormatter.ofPattern("yyyyMMdd")))
@@ -55,15 +55,15 @@ public class ReservationDto {
     @Getter
     @Setter
     @ToString
-    public static class RequestRegister {
+    public static class RequestRegisterRoomTypeInventory {
         private String hotelId;
         private String roomTypeId;
         private String date;
         private Integer totalInventory;
         private Integer totalReservation;
 
-        public ReservationCommand.CreateReservation toCommand() {
-            return ReservationCommand.CreateReservation.builder()
+        public ReservationCommand.CreateRoomTypeInventory toCommand() {
+            return ReservationCommand.CreateRoomTypeInventory.builder()
                     .hotelId(hotelId)
                     .roomTypeId(roomTypeId)
                     .date(date)
@@ -79,5 +79,34 @@ public class ReservationDto {
     @Builder
     public static class ResponseRegister {
         private String token;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    @Builder
+    public static class ResponseReservation {
+        private Boolean isReservation;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RequestReservation {
+        private String startDate;
+        private String endDate;
+        private String reservationId;
+        private String roomId;
+        private String hotelId;
+
+        public ReservationCommand.CreateReservation toCommand() {
+            return ReservationCommand.CreateReservation.builder()
+                    .startDate(startDate)
+                    .endDate(endDate)
+                    .reservationId(reservationId)
+                    .roomId(roomId)
+                    .hotelId(hotelId)
+                    .build();
+        }
     }
 }

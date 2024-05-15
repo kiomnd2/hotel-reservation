@@ -2,7 +2,7 @@ package com.subprj.reservation.interfaces;
 
 import com.subprj.common.response.CommonResponse;
 import com.subprj.reservation.application.ReservationFacade;
-import com.subprj.reservation.domain.ReservationInfo;
+import com.subprj.reservation.domain.RoomTypeInventoryInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,18 +14,29 @@ import java.util.List;
 public class ReservationApi {
     private final ReservationFacade reservationFacade;
 
-    @PutMapping
-    public CommonResponse<ReservationDto.ResponseRegister> createReservation(
-            @RequestBody ReservationDto.RequestRegister request) {
-        String token = reservationFacade.createReservation(request);
+    // 신규 예약 생성
+    // 매니저만 가능
+    @PutMapping("/manage")
+    public CommonResponse<ReservationDto.ResponseRegister> createRoomTypeInventory(
+            @RequestBody ReservationDto.RequestRegisterRoomTypeInventory request) {
+        String token = reservationFacade.createRoomTypeInventory(request);
         return CommonResponse.success(ReservationDto.ResponseRegister.builder().token(token).build());
     }
 
     @GetMapping("{startDate}/{endDate}")
-    public CommonResponse<List<ReservationDto.ResponseReservation>> getReservationBetweenDate(
+    public CommonResponse<List<ReservationDto.ResponseCreateRoomInventory>> getRoomTypeInventoryBetweenDate(
             @PathVariable String startDate, @PathVariable String endDate) {
-        List<ReservationInfo> reservationsRoom = reservationFacade.getReservationsRoom(startDate, endDate);
-        return CommonResponse.success(ReservationDto.ResponseReservation.byInfo(reservationsRoom));
+        List<RoomTypeInventoryInfo> reservationsRoom = reservationFacade.getReservationsRoom(startDate, endDate);
+        return CommonResponse.success(ReservationDto.ResponseCreateRoomInventory.byInfo(reservationsRoom));
+    }
+
+    @PutMapping
+    public CommonResponse<ReservationDto.ResponseReservation> createReservation(
+            @RequestBody ReservationDto.RequestReservation reservation) {
+        boolean isReservation = reservationFacade.createReservation(reservation);
+        return CommonResponse.success(ReservationDto.ResponseReservation.builder()
+                        .isReservation(isReservation)
+                .build());
     }
 
     @GetMapping

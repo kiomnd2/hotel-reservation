@@ -11,18 +11,25 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationService {
     private final ReservationValidator reservationValidator;
-    private final ReservationStore reservationStore;
-    private final ReservationReader reservationReader;
+    private final RoomTypeInventoryStore roomTypeInventoryStore;
+    private final RoomTypeInventoryReader roomTypeInventoryReader;
 
     @Transactional
-    public String register(ReservationCommand.CreateReservation request) {
-        Reservation reservation = request.toEntity();
-        reservation.valid(reservationValidator);
-        return reservationStore.store(reservation).getUuid();
+    public String registerRoomTypeInventory(ReservationCommand.CreateRoomTypeInventory request) {
+        RoomTypeInventory roomTypeInventory = request.toEntity();
+        roomTypeInventory.valid(reservationValidator);
+        return roomTypeInventoryStore.store(roomTypeInventory).getUuid();
     }
 
-    public List<ReservationInfo> getReservationsBetweenDate(String startDate, String endDate) {
-        return reservationReader.read(startDate, endDate).stream()
-                .map(Reservation::toInfo).collect(Collectors.toList());
+    @Transactional
+    public List<RoomTypeInventoryInfo> getRoomTypeBetweenDate(String startDate, String endDate) {
+        return roomTypeInventoryReader.read(startDate, endDate).stream()
+                .map(RoomTypeInventory::toInfo).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public boolean reservation(ReservationCommand.CreateReservation command) {
+        // lock 걸어야 함
+        return reservationValidator.checkReservation(command, roomTypeInventoryReader);
     }
 }

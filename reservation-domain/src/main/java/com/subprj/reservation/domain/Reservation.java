@@ -1,6 +1,5 @@
 package com.subprj.reservation.domain;
 
-import com.subprj.common.InvalidHotelInfoException;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,8 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,36 +20,27 @@ public class Reservation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String uuid;
+    private String reservationId;
     private String hotelId;
     private String roomTypeId;
-    private LocalDateTime date;
-    private Integer totalInventory;
-    private Integer totalReservation;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Status status;
+    private String guestId;
+
+    public enum Status {
+        PENDING, PAID, REFUNDED, CANCELED, REJECTED
+    }
 
     @Builder
-    public Reservation(String hotelId, String roomTypeId, String date, Integer totalInventory, Integer totalReservation) {
-        this.uuid = UUID.randomUUID().toString().substring(0, 10);
+    public Reservation(String reservationId, String hotelId, String roomTypeId, LocalDateTime startDate,
+                       LocalDateTime endDate, Status status, String guestId) {
+        this.reservationId = reservationId;
         this.hotelId = hotelId;
         this.roomTypeId = roomTypeId;
-        this.date = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"));
-        this.totalInventory = totalInventory;
-        this.totalReservation = totalReservation;
-    }
-
-    public void valid(ReservationValidator reservationValidator) {
-        if (!reservationValidator.validHotel(this.getHotelId(), this.getRoomTypeId())) {
-            throw new InvalidHotelInfoException(this.getHotelId(), this.getRoomTypeId());
-        }
-    }
-
-    public ReservationInfo toInfo() {
-        return ReservationInfo.builder()
-                .hotelId(hotelId)
-                .roomTypeId(roomTypeId)
-                .date(date)
-                .totalInventory(totalInventory)
-                .totalReservation(totalReservation)
-                .build();
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = Status.PENDING;
+        this.guestId = guestId;
     }
 }

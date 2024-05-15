@@ -1,6 +1,6 @@
 package com.subprj.reservation.application;
 
-import com.subprj.reservation.domain.ReservationInfo;
+import com.subprj.reservation.domain.RoomTypeInventoryInfo;
 import com.subprj.reservation.domain.ReservationService;
 import com.subprj.reservation.interfaces.ReservationDto;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +13,15 @@ import java.util.List;
 public class ReservationFacade {
     private final ReservationService reservationService;
 
-    public String createReservation(ReservationDto.RequestRegister request) {
-        return reservationService.register(request.toCommand());
+    public String createRoomTypeInventory(ReservationDto.RequestRegisterRoomTypeInventory request) {
+        return reservationService.registerRoomTypeInventory(request.toCommand());
     }
 
-    public List<ReservationInfo> getReservationsRoom(String startDate, String endDate) {
-        return reservationService.getReservationsBetweenDate(startDate, endDate);
+    public List<RoomTypeInventoryInfo> getReservationsRoom(String startDate, String endDate) {
+        return reservationService.getRoomTypeBetweenDate(startDate, endDate);
+    }
+
+    public boolean createReservation(ReservationDto.RequestReservation reservation) {
+        return reservationService.reservation(reservation.toCommand());
     }
 }
