@@ -21,4 +21,15 @@ public class ReservationReaderImpl implements RoomTypeInventoryReader {
                 DateTimeUtil.toLocalDateTime(endDate)
         );
     }
+
+    @Override
+    public List<RoomTypeInventory> read(String hotelId, String roomId,
+                                        String startDate, String endDate) {
+        return roomTypeInventoryRepository.findAllByDateBetweenAndHotelIdAndRoomTypeId(
+                DateTimeUtil.toLocalDateTime(startDate),
+                DateTimeUtil.toLocalDateTime(endDate),
+                hotelId,
+                roomId
+        );
+    }
 }

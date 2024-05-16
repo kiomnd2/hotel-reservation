@@ -13,6 +13,7 @@ public class ReservationService {
     private final ReservationValidator reservationValidator;
     private final RoomTypeInventoryStore roomTypeInventoryStore;
     private final RoomTypeInventoryReader roomTypeInventoryReader;
+    private final ReservationRedissonLock redissonLock;
 
     @Transactional
     public String registerRoomTypeInventory(ReservationCommand.CreateRoomTypeInventory request) {
@@ -30,6 +31,7 @@ public class ReservationService {
     @Transactional
     public boolean reservation(ReservationCommand.CreateReservation command) {
         // lock 걸어야 함
-        return reservationValidator.checkReservation(command, roomTypeInventoryReader);
+        return redissonLock.lock(command.getReservationId(),
+                () -> reservationValidator.checkReservation(command, roomTypeInventoryReader));
     }
 }

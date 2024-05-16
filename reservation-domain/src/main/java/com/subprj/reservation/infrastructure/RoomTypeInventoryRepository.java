@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface RoomTypeInventoryRepository extends JpaRepository<RoomTypeInventory, Long> {
     List<RoomTypeInventory> findAllByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+    List<RoomTypeInventory> findAllByDateBetweenAndHotelIdAndRoomTypeId(LocalDateTime startDate, LocalDateTime endDate
+            , String hotelId, String roomId);
 }

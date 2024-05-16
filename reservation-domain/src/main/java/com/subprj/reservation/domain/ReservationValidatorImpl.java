@@ -35,7 +35,6 @@ public class ReservationValidatorImpl implements ReservationValidator {
             return inventory.stream()
                     .anyMatch(roomTypeInventory -> roomTypeInventory.checkRoomInventory(command.getNumberOfRoomReserve()));
         }
-
         return true;
     }
 
