@@ -1,16 +1,16 @@
 package com.subprj.reservation.infrastructure;
 
-import com.subprj.reservation.domain.RoomTypeInventory;
-import com.subprj.reservation.domain.RoomTypeInventoryStore;
+import com.subprj.reservation.domain.Reservation;
+import com.subprj.reservation.domain.ReservationStore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class ReservationStoreImpl extends RoomTypeInventoryStore {
-    private final RoomTypeInventoryRepository reservationRepository;
+public class ReservationStoreImpl implements ReservationStore {
+    private final ReservationRepository reservationRepository;
     @Override
-    public RoomTypeInventory store(RoomTypeInventory reservation) {
+    public Reservation store(Reservation reservation) {
         return reservationRepository.save(reservation);
     }
 }

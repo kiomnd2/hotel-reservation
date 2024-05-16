@@ -1,5 +1,6 @@
 package com.subprj.reservation.domain;
 
+import com.subprj.reservation.infrastructure.RoomTypeInventoryStoreImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,8 @@ public class ReservationService {
     private final RoomTypeInventoryStore roomTypeInventoryStore;
     private final RoomTypeInventoryReader roomTypeInventoryReader;
     private final ReservationRedissonLock redissonLock;
+    private final ReservationStore reservationStore;
+    private final ReservationReader reservationReader;
 
     @Transactional
     public String registerRoomTypeInventory(ReservationCommand.CreateRoomTypeInventory request) {
@@ -31,7 +34,12 @@ public class ReservationService {
     @Transactional
     public boolean reservation(ReservationCommand.CreateReservation command) {
         // lock 걸어야 함
-        return redissonLock.lock(command.getReservationId(),
+        boolean isCheck = redissonLock.lock(command.getReservationId(),
                 () -> reservationValidator.checkReservation(command, roomTypeInventoryReader));
+        if (isCheck && !reservationReader.checkReservation(command.getReservationId())) {
+            reservationStore.store(command.toEntity());
+            return true;
+        }
+        return false;
     }
 }
