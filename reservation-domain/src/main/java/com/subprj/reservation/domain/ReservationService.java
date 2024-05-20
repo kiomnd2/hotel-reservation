@@ -34,8 +34,16 @@ public class ReservationService {
     @Transactional
     public boolean reservation(ReservationCommand.CreateReservation command) {
         // lock 걸어야 함
-        boolean isCheck = redissonLock.lock(command.getReservationId(),
-                () -> reservationValidator.checkReservation(command, roomTypeInventoryReader));
+        boolean isCheck = redissonLock.lock(command.getReservationId(), () -> {
+            if (reservationValidator.checkReservation(command, roomTypeInventoryReader)) {
+                List<RoomTypeInventory> inventoryList = roomTypeInventoryReader.read(command.getHotelId(), command.getRoomId()
+                        , command.getStartDate(), command.getEndDate());
+                inventoryList.forEach(v -> v.reservation(command.getNumberOfRoomReserve()));
+                return true;
+            }
+            return false;
+        });
+
         if (isCheck && !reservationReader.checkReservation(command.getReservationId())) {
             reservationStore.store(command.toEntity());
             return true;

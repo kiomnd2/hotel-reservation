@@ -63,4 +63,8 @@ public class RoomTypeInventory {
         }
         return false;
     }
+
+    public void reservation(int numberOfRoomReserve) {
+        this.totalReservation = this.totalReservation + numberOfRoomReserve;
+    }
 }

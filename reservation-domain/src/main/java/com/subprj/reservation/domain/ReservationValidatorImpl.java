@@ -33,7 +33,7 @@ public class ReservationValidatorImpl implements ReservationValidator {
                             command.getStartDate(), command.getEndDate());
             // 인벤토리가 하나라도 없으면 false
             return inventory.stream()
-                    .anyMatch(roomTypeInventory -> roomTypeInventory.checkRoomInventory(command.getNumberOfRoomReserve()));
+                    .allMatch(roomTypeInventory -> roomTypeInventory.checkRoomInventory(command.getNumberOfRoomReserve()));
         }
         return true;
     }
