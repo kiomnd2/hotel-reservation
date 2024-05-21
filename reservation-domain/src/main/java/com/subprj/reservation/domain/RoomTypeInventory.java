@@ -40,6 +40,16 @@ public class RoomTypeInventory {
         this.totalReservation = totalReservation;
     }
 
+    public RoomTypeInventoryCache toCache() {
+        return RoomTypeInventoryCache.builder()
+                .hotelId(hotelId)
+                .roomTypeId(roomTypeId)
+                .date(date)
+                .totalInventory(totalInventory)
+                .totalReservation(totalReservation)
+                .build();
+    }
+
     public void valid(ReservationValidator reservationValidator) {
         if (!reservationValidator.validHotel(this.getHotelId(), this.getRoomTypeId())) {
             throw new InvalidHotelInfoException(this.getHotelId(), this.getRoomTypeId());

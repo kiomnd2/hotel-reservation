@@ -28,8 +28,8 @@ public class ReservationValidatorImpl implements ReservationValidator {
                                     RoomTypeInventoryReader roomTypeInventoryReader) {
         RoomInfo hotelRoom = hotelService.getHotelRoom(command.getHotelId(), command.getRoomId());
         if (hotelRoom.getIsAvailable()) {
-            List<RoomTypeInventory> inventory =
-                    roomTypeInventoryReader.read(command.getHotelId(), command.getRoomId(),
+            List<RoomTypeInventoryCache> inventory =
+                    roomTypeInventoryReader.readCache(command.getHotelId(), command.getRoomId(),
                             command.getStartDate(), command.getEndDate());
             // 인벤토리가 하나라도 없으면 false
             return inventory.stream()

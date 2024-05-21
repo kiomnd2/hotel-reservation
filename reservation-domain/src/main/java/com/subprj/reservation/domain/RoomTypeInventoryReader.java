@@ -5,4 +5,6 @@ import java.util.List;
 public interface RoomTypeInventoryReader {
     List<RoomTypeInventory> read(String startDate, String endDate);
     List<RoomTypeInventory> read(String hotelId, String roomId, String startDate, String endDate);
+
+    List<RoomTypeInventoryCache> readCache(String hotelId, String roomId, String startDate, String endDate);
 }

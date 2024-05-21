@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class RoomTypeInventoryStoreImpl extends RoomTypeInventoryStore {
     private final RoomTypeInventoryRepository reservationRepository;
+    private final RoomTypeCacheInventoryRepository cacheStore;
     @Override
     public RoomTypeInventory store(RoomTypeInventory reservation) {
+        cacheStore.save(reservation.toCache());
         return reservationRepository.save(reservation);
     }
 }

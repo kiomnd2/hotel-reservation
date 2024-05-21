@@ -1,5 +1,6 @@
 package com.subprj.reservation.domain;
 
+import com.subprj.reservation.infrastructure.RoomTypeCacheInventoryRepository;
 import com.subprj.reservation.infrastructure.RoomTypeInventoryStoreImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,13 @@ public class ReservationService {
     private final ReservationRedissonLock redissonLock;
     private final ReservationStore reservationStore;
     private final ReservationReader reservationReader;
+    private final RoomTypeCacheInventoryRepository roomTypeCacheInventoryRepository;
 
     @Transactional
     public String registerRoomTypeInventory(ReservationCommand.CreateRoomTypeInventory request) {
         RoomTypeInventory roomTypeInventory = request.toEntity();
         roomTypeInventory.valid(reservationValidator);
+
         return roomTypeInventoryStore.store(roomTypeInventory).getUuid();
     }
 
@@ -33,21 +36,20 @@ public class ReservationService {
 
     @Transactional
     public boolean reservation(ReservationCommand.CreateReservation command) {
+
+        if (!reservationReader.checkReservation(command.getReservationId())) {
+            reservationStore.store(command.toEntity());
+        }
         // lock 걸어야 함
-        boolean isCheck = redissonLock.lock(command.getReservationId(), () -> {
+
+        return redissonLock.lock(command.getReservationId(), () -> {
             if (reservationValidator.checkReservation(command, roomTypeInventoryReader)) {
-                List<RoomTypeInventory> inventoryList = roomTypeInventoryReader.read(command.getHotelId(), command.getRoomId()
+                List<RoomTypeInventoryCache> inventoryList = roomTypeInventoryReader.readCache(command.getHotelId(), command.getRoomId()
                         , command.getStartDate(), command.getEndDate());
-                inventoryList.forEach(v -> v.reservation(command.getNumberOfRoomReserve()));
+                inventoryList.forEach(v -> roomTypeCacheInventoryRepository.save(v.reservation(command.getNumberOfRoomReserve())));
                 return true;
             }
             return false;
         });
-
-        if (isCheck && !reservationReader.checkReservation(command.getReservationId())) {
-            reservationStore.store(command.toEntity());
-            return true;
-        }
-        return false;
     }
 }

@@ -13,15 +13,36 @@ import java.time.LocalDateTime;
 public class RoomTypeInventoryCache {
 
     @Id
-    private final String hotelId_roomTypeId_date;
-    private final Integer totalInventory;
-    private final Integer totalReservation;
+    private String id ;
+    private String hotelId;
+    private String roomTypeId;
+    private LocalDateTime reserveDate;
+    private Integer totalInventory;
+    private Integer totalReservation;
 
     @Builder
     public RoomTypeInventoryCache(String hotelId, String roomTypeId, LocalDateTime date,
                                   Integer totalInventory, Integer totalReservation) {
-        this.hotelId_roomTypeId_date = hotelId + roomTypeId + DateTimeUtil.toString(date);
+        this.id = hotelId + roomTypeId + DateTimeUtil.toString(date);
+        this.hotelId = hotelId;
+        this.roomTypeId = roomTypeId;
+        this.reserveDate = date;
         this.totalInventory = totalInventory;
         this.totalReservation = totalReservation;
+    }
+
+
+
+    public boolean checkRoomInventory(int numberOfRoomReserve) {
+        // 예약의 10퍼센트 초과까지 받음
+        if (this.totalReservation + numberOfRoomReserve <= totalInventory * 1.1) {
+            return true;
+        }
+        return false;
+    }
+
+    public RoomTypeInventoryCache reservation(int numberOfRoomReserve) {
+        this.totalReservation = this.totalReservation + numberOfRoomReserve;
+        return this;
     }
 }
