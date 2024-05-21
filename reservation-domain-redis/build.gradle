@@ -10,4 +10,6 @@ dependencies {
     implementation project(":common-api")
     implementation project(":hotel-domain")
     implementation 'org.redisson:redisson-spring-boot-starter:3.16.3'
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
