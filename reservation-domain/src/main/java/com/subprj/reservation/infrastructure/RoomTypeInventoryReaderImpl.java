@@ -7,6 +7,7 @@ import com.subprj.reservation.domain.RoomTypeInventoryReader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class RoomTypeInventoryReaderImpl implements RoomTypeInventoryReader {
     public List<RoomTypeInventory> read(String hotelId, String roomId,
                                         String startDate, String endDate) {
         // 캐시 먼저 찾음
-        LocalDateTime startDateTime = DateTimeUtil.toLocalDateTime(startDate);
-        LocalDateTime endDateTime = DateTimeUtil.toLocalDateTime(endDate);
+        LocalDate startDateTime = DateTimeUtil.toLocalDateTime(startDate);
+        LocalDate endDateTime = DateTimeUtil.toLocalDateTime(endDate);
         return roomTypeInventoryRepository.findAllByDateBetweenAndHotelIdAndRoomTypeId(
                 startDateTime,
                 endDateTime,
@@ -40,8 +41,8 @@ public class RoomTypeInventoryReaderImpl implements RoomTypeInventoryReader {
 
     @Override
     public List<RoomTypeInventoryCache> readCache(String hotelId, String roomId, String startDate, String endDate) {
-        LocalDateTime startDateTime = DateTimeUtil.toLocalDateTime(startDate);
-        LocalDateTime endDateTime = DateTimeUtil.toLocalDateTime(endDate);
+        LocalDate startDateTime = DateTimeUtil.toLocalDateTime(startDate);
+        LocalDate endDateTime = DateTimeUtil.toLocalDateTime(endDate);
 
         return cacheInventoryRepository.findAllByReserveDateBetweenAndHotelIdAndRoomTypeId(
         startDateTime, endDateTime, hotelId, roomId);

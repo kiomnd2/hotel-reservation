@@ -1,6 +1,7 @@
 package com.subprj.reservation.domain;
 
 import com.subprj.common.InvalidHotelInfoException;
+import com.subprj.common.utils.DateTimeUtil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -26,7 +28,7 @@ public class RoomTypeInventory {
     private String uuid;
     private String hotelId;
     private String roomTypeId;
-    private LocalDateTime date;
+    private LocalDate date;
     private Integer totalInventory;
     private Integer totalReservation;
 
@@ -35,7 +37,7 @@ public class RoomTypeInventory {
         this.uuid = UUID.randomUUID().toString().substring(0, 10);
         this.hotelId = hotelId;
         this.roomTypeId = roomTypeId;
-        this.date = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        this.date = DateTimeUtil.toLocalDateTime(date);
         this.totalInventory = totalInventory;
         this.totalReservation = totalReservation;
     }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -14,7 +15,7 @@ public class RoomTypeInventoryInfo {
     private final String uuid;
     private final String hotelId;
     private final String roomTypeId;
-    private final LocalDateTime date;
+    private final LocalDate date;
     private final Integer totalInventory;
     private final Integer totalReservation;
 }

@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -23,8 +24,8 @@ public class Reservation {
     private String reservationId;
     private String hotelId;
     private String roomTypeId;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Status status;
     private String guestId;
 
@@ -33,8 +34,8 @@ public class Reservation {
     }
 
     @Builder
-    public Reservation(String reservationId, String hotelId, String roomTypeId, LocalDateTime startDate,
-                       LocalDateTime endDate, Status status, String guestId) {
+    public Reservation(String reservationId, String hotelId, String roomTypeId, LocalDate startDate,
+                       LocalDate endDate, Status status, String guestId) {
         this.reservationId = reservationId;
         this.hotelId = hotelId;
         this.roomTypeId = roomTypeId;

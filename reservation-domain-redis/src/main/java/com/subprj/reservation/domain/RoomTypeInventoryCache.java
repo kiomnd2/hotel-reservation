@@ -6,6 +6,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,12 +17,12 @@ public class RoomTypeInventoryCache {
     private String id ;
     private String hotelId;
     private String roomTypeId;
-    private LocalDateTime reserveDate;
+    private LocalDate reserveDate;
     private Integer totalInventory;
     private Integer totalReservation;
 
     @Builder
-    public RoomTypeInventoryCache(String hotelId, String roomTypeId, LocalDateTime date,
+    public RoomTypeInventoryCache(String hotelId, String roomTypeId, LocalDate date,
                                   Integer totalInventory, Integer totalReservation) {
         this.id = hotelId + roomTypeId + DateTimeUtil.toString(date);
         this.hotelId = hotelId;
