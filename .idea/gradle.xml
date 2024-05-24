@@ -12,10 +12,8 @@
             <option value="$PROJECT_DIR$/api-gateway" />
             <option value="$PROJECT_DIR$/common-api" />
             <option value="$PROJECT_DIR$/eureka-server" />
-            <option value="$PROJECT_DIR$/fee-domain" />
             <option value="$PROJECT_DIR$/hotel-domain" />
             <option value="$PROJECT_DIR$/hotel-internal-api" />
-            <option value="$PROJECT_DIR$/payment-domain" />
             <option value="$PROJECT_DIR$/reservation-domain" />
             <option value="$PROJECT_DIR$/reservation-domain-redis" />
             <option value="$PROJECT_DIR$/reservation-internal-api" />
