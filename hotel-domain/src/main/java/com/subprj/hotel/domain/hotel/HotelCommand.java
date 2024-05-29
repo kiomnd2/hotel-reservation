@@ -1,6 +1,5 @@
 package com.subprj.hotel.domain.hotel;
 
-import ch.qos.logback.classic.spi.LoggingEventVO;
 import com.subprj.hotel.domain.hotel.room.Room;
 import lombok.Builder;
 import lombok.Getter;

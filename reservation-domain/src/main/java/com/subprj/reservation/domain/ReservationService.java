@@ -1,7 +1,6 @@
 package com.subprj.reservation.domain;
 
 import com.subprj.reservation.infrastructure.RoomTypeCacheInventoryRepository;
-import com.subprj.reservation.infrastructure.RoomTypeInventoryStoreImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -6,8 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.PropertySource;
 
 @PropertySource(ignoreResourceNotFound = true, encoding = "UTF-8", value = {
-        "classpath:config/application-hotelapi.properties",
-        "classpath:config/application-hotelapi-${spring.active.profiles}.properties"
+        "classpath:config/application-hotelapi.properties"
 })
 @EnableDiscoveryClient
 @SpringBootApplication

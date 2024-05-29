@@ -3,7 +3,6 @@ package com.subprj.reservation.infrastructure;
 import com.subprj.reservation.domain.Process;
 import com.subprj.reservation.domain.ReservationRedissonLock;
 import lombok.RequiredArgsConstructor;
-import org.redisson.RedissonLock;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;

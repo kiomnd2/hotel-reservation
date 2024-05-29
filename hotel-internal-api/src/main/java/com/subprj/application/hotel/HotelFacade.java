@@ -3,7 +3,6 @@ package com.subprj.application.hotel;
 import com.subprj.hotel.domain.hotel.HotelCommand;
 import com.subprj.hotel.domain.hotel.HotelInfo;
 import com.subprj.hotel.domain.hotel.HotelService;
-import com.subprj.hotel.domain.hotel.room.RoomInfo;
 import com.subprj.interfaces.hotel.HotelDto;
 import com.subprj.interfaces.hotel.RoomDto;
 import lombok.RequiredArgsConstructor;

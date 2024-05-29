@@ -7,7 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @RedisHash(value = "ROOM_INVENTORY", timeToLive = 30)

@@ -1,7 +1,6 @@
 package com.subprj.interfaces.hotel;
 
 import com.subprj.hotel.domain.hotel.Hotel;
-import com.subprj.hotel.domain.hotel.room.RoomInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
